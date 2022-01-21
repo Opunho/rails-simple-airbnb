@@ -1,0 +1,20 @@
+<h1>Flats available</h1>
+<i class="fas fa-plus"></i><%= link_to "Add a new flat", new_flat_path %>
+
+ <% if @query %>
+        <p>You searched for <strong><%= "#{@query}" %></strong>. We found <%= @flats.count %> flats out of our <%= Flat.count %> on our website.</p>
+      <% else %>
+        <p>All <%= Flat.count %> flats.</p>
+      <% end %>
+
+<% @flats.each do |flat| %>
+<div class="flat-card">
+  <h3><%= link_to flat.name, flat_path(flat) %></h3>
+  <p><%= flat.address %></p>
+  <p><i class="fas fa-euro-sign"></i> <%= flat.price_per_night %></p>
+  <p><i class="fas fa-user"></i> <%= flat.number_of_guests %></p>
+  <%= link_to "More info", flat_path(flat) %>
+  <%= link_to "Edit", edit_flat_path(flat) %>
+  <%= link_to "Remove", flat_path(flat), method: :delete, data: { confirm: "Are you sure?" } %>
+</div>
+<% end %>
